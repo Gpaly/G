@@ -1,0 +1,53 @@
+package saurabhc3;
+
+import java.util.*;
+
+public class BFS {
+    private int vertices;
+    private LinkedList<Integer>[] adjacencyList;
+
+    @SuppressWarnings("unchecked")
+    BFS(int v) {
+        vertices = v;
+        adjacencyList = new LinkedList[v];
+        for (int i = 0; i < v; i++)
+            adjacencyList[i] = new LinkedList<>();
+    }
+
+    void addEdge(int v, int w) {
+        adjacencyList[v].add(w);
+    }
+
+    void bfsTraversal(int start) {
+        boolean[] visited = new boolean[vertices];
+        LinkedList<Integer> queue = new LinkedList<>();
+        visited[start] = true;
+        queue.add(start);
+
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            System.out.print(node + " ");
+
+            for (int neighbor : adjacencyList[node]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.add(neighbor);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        BFS graph = new BFS(4);
+
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 0);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 3);
+
+        System.out.println("BFS starting from vertex 2:");
+        graph.bfsTraversal(2);
+    }
+}
