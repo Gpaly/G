@@ -1,0 +1,35 @@
+import static java.lang.Math.min;
+
+public class BinomialCoeff {
+
+    // Method to compute binomial coefficient
+    int binomial(int n, int k) {
+        // Create a 2D array to store binomial coefficients
+        int[][] array = new int[n + 1][k + 1];
+
+        // Fill the array using the binomial coefficient formula
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= min(i, k); j++) {
+                // Base cases: C(i, 0) = 1 and C(i, i) = 1
+                if (j == 0 || j == i) {
+                    array[i][j] = 1;
+                } else {
+                    // Recursive formula: C(i, j) = C(i-1, j-1) + C(i-1, j)
+                    array[i][j] = array[i - 1][j - 1] + array[i - 1][j];
+                }
+            }
+        }
+
+        return array[n][k];
+    }
+
+    // Main method for testing
+    public static void main(String[] args) {
+        BinomialCoeff binCoeff = new BinomialCoeff();
+
+        int n = 5; // Number of items
+        int k = 2; // Number of choices
+
+        System.out.println("C(" + n + ", " + k + ") = " + binCoeff.binomial(n, k));
+    }
+}
